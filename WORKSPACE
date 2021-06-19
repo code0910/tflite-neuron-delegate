@@ -4,12 +4,10 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "org_tensorflow",
-    patch_args = ["-p1"],
-    patches = ["//third_party:tf_hacks_for_gpu_delegates.diff"],
-    sha256 = "e3d0ee227cc19bd0fa34a4539c8a540b40f937e561b4580d4bbb7f0e31c6a713",
-    strip_prefix = "tensorflow-2.5.0",
+    sha256 = "9a0a0dba224c5fbae4c752016ac4fd69602fa841e605d8d5b9d644c3a4c1e5af",
+    strip_prefix = "tensorflow-85ea65bfefc79f8e7d8a91ba86d2c3e72586131d",
     urls = [
-        "https://github.com/tensorflow/tensorflow/archive/v2.5.0.zip",
+        "https://github.com/tensorflow/tensorflow/archive/85ea65bfefc79f8e7d8a91ba86d2c3e72586131d.zip",
     ],
 )
 

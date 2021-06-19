@@ -46,6 +46,9 @@ class NeuronDelegateProvider : public DelegateProvider {
 
   TfLiteDelegatePtr CreateTfLiteDelegate(const ToolParams& params) const final;
 
+  std::pair<TfLiteDelegatePtr, int> CreateRankedTfLiteDelegate(
+      const ToolParams& params) const final;
+
   std::string GetName() const final { return "NeuronDelegate"; }
 };
 REGISTER_DELEGATE_PROVIDER(NeuronDelegateProvider);
@@ -119,6 +122,14 @@ TfLiteDelegatePtr NeuronDelegateProvider::CreateTfLiteDelegate(
     return TfLiteNeuronDelegateCreateUnique(&default_options);
   }
   return TfLiteDelegatePtr(nullptr, [](TfLiteDelegate*) {});
+}
+
+std::pair<TfLiteDelegatePtr, int>
+NeuronDelegateProvider::CreateRankedTfLiteDelegate(
+    const ToolParams& params) const {
+  auto ptr = CreateTfLiteDelegate(params);
+  return std::make_pair(std::move(ptr),
+                        params.GetPosition<bool>("use_neuron"));
 }
 
 }  // namespace tools
